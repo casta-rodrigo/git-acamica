@@ -36,6 +36,7 @@ actualizarLimiteEnPantalla(limiteExtraccion);
 function cambiarLimiteDeExtraccion() {
     var limite = prompt('Introduzca el nuevo limite. ');
     var limiteNew = parseInt(limite);
+    limiteSaldo(limiteNew);
     actualizarLimiteEnPantalla(limiteExtraccion);
     alert('Su nuevo limite de extraccion es: $' + limiteExtraccion);
 }
