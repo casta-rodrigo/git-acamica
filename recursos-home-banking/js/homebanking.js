@@ -1,5 +1,5 @@
 //Declaración de variables
-var nombreUsuario = 'esteban quito de las plazas';
+var nombreUsuario = 'mi nombre';
 var contraseña = '9292';
 var saldoCuenta = 15000;
 var limiteExtraccion = 1000;
@@ -106,25 +106,23 @@ function extraerDinero() {
                 if ((userTransf != armandoParedes) && (userTransf != luzClaraDeLaCalle)){
                     alert('Recuerde que solo puede transferir plata a cuentas amigas.');
                 }
-            }
-            else if((userTransf == armandoParedes) && (userTransf == luzClaraDeLaCalle)){
-                restaTransf(transfInt);
-                actualizarSaldoEnPantalla(saldoCuenta);
-                alert('Se ha trnasferido $' + transfInt, 'a' + userTransf);
+                else{
+                    restaTransf(transfInt);
+                    actualizarSaldoEnPantalla(saldoCuenta);
+                    alert('Se ha trnasferido $' + transfInt, 'a' + userTransf);
+
+                }
             }
         }
         
         function iniciarSesion() {
-            var username = prompt('Introduzca su nombre de usuario');
-            if (username != nombreUsuario){
-                saldoCuenta = 0;
-                alert('Usuario incorrecto, recargue la pagina e intentelo de nuevo.');
-            }
+            var username = prompt('Introduzca su nombre de uario.');
             var password = prompt('Introduzca su contraseña.');
-            if (password != contraseña){
+            if ((username != nombreUsuario) || (password != contraseña)){
+                alert('Usuario y/o contraseña incorrecta, recargue la pagina e intntelo de nuevo.');
                 saldoCuenta = 0;
-                alert('Contraseña incorrecta, recargue la pagina e intentelo de nuevo.');
             }
+            actualizarSaldoEnPantalla();
         }
         
         //Funciones que actualizan el valor de las variables en el HTML
