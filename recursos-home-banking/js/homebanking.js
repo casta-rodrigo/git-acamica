@@ -25,6 +25,9 @@ function restaServ (pesos){
 function restaTransf (pesos){
     saldoCuenta -= pesos;
 }
+/* function consultaAlUsuario (mensae){     FALTA TRABAJAR LOS NULL
+    return parseInt ( prompt ( mensaje))
+}*/
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML
 iniciarSesion();
@@ -56,14 +59,20 @@ function extraerDinero() {
     else{
         restaSaldo(resta);
         actualizarSaldoEnPantalla(saldoCuenta);
-        alert('Usted ha retirado $ ' + resta);}
+        alert('Usted ha retirado $ ' + resta);
+    }
     }
     function depositarDinero() {
         var monto = prompt('Por favor introduzca la suma a depositar.');
-        var suma = parseInt(monto );
+        var suma = parseInt(monto);
+        if (isNaN(suma)){
+            alert('Por favor introduzca el monton en caracteres numericos.');
+            actualizarSaldoEnPantalla();
+        }
+        else{
         sumaSaldo(suma);
         actualizarSaldoEnPantalla(saldoCuenta);
-        alert('Usted ha depositado: $' + suma,  '\nSu saldo anterior es de ');
+        alert('Usted ha depositado: $' + suma,  '\nSu saldo anterior es de ');}
     }
     
     function pagarServicio() {
@@ -98,10 +107,13 @@ function extraerDinero() {
         function transferirDinero() {
             var montoTransf = prompt('Introduzca el monto que desea transferir.');
             var transfInt = parseInt(montoTransf);
-            if (transfInt > saldoCuenta){
+            if (isNaN(transfInt)){
+                alert('Por favor introduzca el monto en caracteres numericos');
+            }
+            else if (transfInt > saldoCuenta){
                 alert('No dispone de suficiente saldo para realizar la transferencia.');
             }
-            else if ( transfInt <= saldoCuenta){
+            else{
                 var userTransf = prompt('Introduzca el número de cuenta al que desea transferirle dinero.');
                 if ((userTransf != armandoParedes) && (userTransf != luzClaraDeLaCalle)){
                     alert('Recuerde que solo puede transferir plata a cuentas amigas.');
@@ -116,11 +128,11 @@ function extraerDinero() {
         }
         
         function iniciarSesion() {
-            var username = prompt('Introduzca su nombre de uario.');
+            var username = prompt('Introduzca su nombre de usario.');
             var password = prompt('Introduzca su contraseña.');
-            if ((username != nombreUsuario) || (password != contraseña)){
+            if (username != nombreUsuario || password != contraseña){
                 alert('Usuario y/o contraseña incorrecta, recargue la pagina e intntelo de nuevo.');
-                saldoCuenta = 0;
+                saldoCuenta = "";
             }
             actualizarSaldoEnPantalla();
         }
