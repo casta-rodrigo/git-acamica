@@ -25,9 +25,9 @@ function restaServ (pesos){
 function restaTransf (pesos){
     saldoCuenta -= pesos;
 }
-/* function consultaAlUsuario (mensae){     FALTA TRABAJAR LOS NULL
-    return parseInt ( prompt ( mensaje))
-}*/
+function consultaAlUsuario (mensaje){   //  FALTA TRABAJAR LOS NULL
+    return parseInt (prompt( mensaje))
+}
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML
 iniciarSesion();
@@ -37,16 +37,19 @@ actualizarLimiteEnPantalla(limiteExtraccion);
 
 //Funciones que tenes que completar
 function cambiarLimiteDeExtraccion() {
-    var limite = prompt('Introduzca el nuevo limite. ');
-    var limiteNew = parseInt(limite);
+    var limiteNew = consultaAlUsuario('Introduzca el nuevo limite de extraccion.');
+    if (isNaN(limiteNew)){
+        alert('Introduzca el monto en caracteres numericos.')
+    }
+    else{
     limiteSaldo(limiteNew);
     actualizarLimiteEnPantalla(limiteExtraccion);
     alert('Su nuevo limite de extraccion es: $' + limiteExtraccion);
+        }
 }
 
 function extraerDinero() {
-    var extr = prompt('Introduzca la cantidad de dinero que quiere extraer. ');
-    var resta = parseInt(extr);
+    var resta = consultaAlUsuario('Introduzca el monto que desea extraer.');
     if (resta > saldoCuenta){
         alert('No dispone de saldo suficiente.');
     } 
@@ -60,11 +63,10 @@ function extraerDinero() {
         restaSaldo(resta);
         actualizarSaldoEnPantalla(saldoCuenta);
         alert('Usted ha retirado $ ' + resta);
-    }
+        }
     }
     function depositarDinero() {
-        var monto = prompt('Por favor introduzca la suma a depositar.');
-        var suma = parseInt(monto);
+        var suma = consultaAlUsuario('Introduzca el monto que desea depositar.');
         if (isNaN(suma)){
             alert('Por favor introduzca el monton en caracteres numericos.');
             actualizarSaldoEnPantalla();
@@ -105,8 +107,7 @@ function extraerDinero() {
         }
         
         function transferirDinero() {
-            var montoTransf = prompt('Introduzca el monto que desea transferir.');
-            var transfInt = parseInt(montoTransf);
+            var transfInt = consultaAlUsuario('Introduzca el monto que desea transferir.');
             if (isNaN(transfInt)){
                 alert('Por favor introduzca el monto en caracteres numericos');
             }
