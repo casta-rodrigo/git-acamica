@@ -83,14 +83,14 @@ function extraerDinero() {
  function depositarDinero() {
      if (validacion === true){
     var suma = consultaAlUsuario('Introduzca el monto que desea depositar.');
-    var sumaFinal = parseFloat(suma);
-        if (sumaFinal === null){
+    var sumaFinal = parseInt(suma);
+        if (suma === null){
             return;
         }
-        else if (isNaN(sumaFinal)){
+        else if (isNaN(sumaFinal) || sumaFinal === ''){
             alert('Por favor introduzca el monto en caraceres numericos.');
         }
-        else if (!isNaN(suma) && suma !== null && suma !== ''){
+        else{
         sumaSaldo(sumaFinal);
         actualizarSaldoEnPantalla(saldoCuenta);
         alert('Usted ha depositado: $' + sumaFinal,  '\nSu saldo anterior es de ');
@@ -138,7 +138,7 @@ function transferirDinero() {
      if (transfInt === null){
          return;
      }
-     if (isNaN(transfInt)){
+     else if (isNaN(transfInt) || transfInt === ''){
         alert('Por favor introduzca el monto en caracteres numericos');
         }
      else if (transfInt > saldoCuenta){
