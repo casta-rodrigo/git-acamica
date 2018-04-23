@@ -36,7 +36,7 @@ function consultaAlUsuario (mensaje){
 }*/
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML
-//iniciarSesion();
+iniciarSesion();
 cargarNombreEnPantalla(nombreUsuario);
 actualizarSaldoEnPantalla(saldoCuenta);
 actualizarLimiteEnPantalla(limiteExtraccion);
@@ -81,15 +81,24 @@ function extraerDinero() {
         }
     }
  function depositarDinero() {
+     if (validacion === true){
     var suma = consultaAlUsuario('Introduzca el monto que desea depositar.');
-        if (isNaN(suma)){
-            alert('Por favor introduzca el monton en caracteres numericos.');
+    var sumaFinal = parseFloat(suma);
+        if (sumaFinal === null){
+            return;
+        }
+        else if (isNaN(sumaFinal)){
+            alert('Por favor introduzca el monto en caraceres numericos.');
         }
         else if (!isNaN(suma) && suma !== null && suma !== ''){
-        sumaSaldo(suma);
+        sumaSaldo(sumaFinal);
         actualizarSaldoEnPantalla(saldoCuenta);
-        alert('Usted ha depositado: $' + suma,  '\nSu saldo anterior es de ');
+        alert('Usted ha depositado: $' + sumaFinal,  '\nSu saldo anterior es de ');
         }
+    }
+    else{
+        alert('Contraseña y/o usario incorrecto, las operaciones estan deshabilitadas.');
+    }
 }
     
 function pagarServicio() {
