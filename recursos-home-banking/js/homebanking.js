@@ -1,3 +1,4 @@
+//Pido disculpas por la demora en la entraga.
 //Declaración de variables
 var nombreUsuario = 'mi nombre';
 var contraseña = '9292';
@@ -5,12 +6,13 @@ var saldoCuenta = 15000;
 var limiteExtraccion = 1000;
 var agua = 350;
 var luz = 425;
-var internet = 210;
+var internet = 210; 
 var telefono = 570;
 var cuentaAmiga1 = '1234567';
 var cuentaAmiga2 = '7654321';
 var validacion = true;
-
+var antiguoSaldo = saldoCuenta;
+ 
 function sumaSaldo(pesos){
     saldoCuenta += pesos;
 }
@@ -29,12 +31,9 @@ function restaTransf (pesos){
 function consultaAlUsuario (mensaje){  
     return prompt(mensaje);
 }
-/*function cancel(dato){
-    if (isNaN(dato) || dato < 0){
-        return;
-    }
-}*/
-
+function oldSaldoCuenta (){
+    antiguoSaldo = saldoCuenta;
+}
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML
 iniciarSesion();
 cargarNombreEnPantalla(nombreUsuario);
@@ -68,7 +67,7 @@ function extraerDinero() {
     else if (resta > saldoCuenta){
         alert('No dispone de saldo suficiente.');
     } 
-    else if (resta >= limiteExtraccion){
+    else if (resta > limiteExtraccion){
         alert('No puede exceder el limite de extracción.')
     }
     else if (resta % 100 !== 0){
@@ -91,9 +90,10 @@ function extraerDinero() {
             alert('Por favor introduzca el monto en caraceres numericos.');
         }
         else{
-        sumaSaldo(sumaFinal);
-        actualizarSaldoEnPantalla(saldoCuenta);
-        alert('Usted ha depositado: $' + sumaFinal,  '\nSu saldo anterior es de ');
+            oldSaldoCuenta();
+            sumaSaldo(sumaFinal);
+            alert('Usted ha depositado: $' + sumaFinal + '\nSu slado anterior es de ' + antiguoSaldo);
+            actualizarSaldoEnPantalla(saldoCuenta);
         }
     }
     else{
@@ -109,20 +109,24 @@ function pagarServicio() {
     else{
         switch (servPay){
             case '1':
+            oldSaldoCuenta();
             restaServ(agua);
-            alert('Ha pagado el servicio Agua.\nSaldo anterior $15000\nMonto debitado $350\nSaldo actual ' + saldoCuenta);
+            alert('Ha pagado el servicio Agua.\n' + 'Saldo anterior $ ' + antiguoSaldo  + '\nMonto debitado $350\nSaldo actual ' + saldoCuenta);
             break;
             case '2':
+            oldSaldoCuenta();
             restaServ(luz);
-            alert('Ha pagado el servicio Luz.\nSaldo anterior $15000\nMonto debitado $425\nSaldo actual ' + saldoCuenta);
+            alert('Ha pagado el servicio Luz.\n' + 'Saldo anterior $' + antiguoSaldo + '\nMonto debitado $425\nSaldo actual ' + saldoCuenta);
             break;
             case '3':
+            oldSaldoCuenta();
             restaServ(internet);
-            alert('Ha pagado el servicio Internet.\nSaldo anterior $15000\nMonto debitado $210\nSaldo actual ' + saldoCuenta);
+            alert('Ha pagado el servicio Internet.\n' + 'Saldo anterior $' + antiguoSaldo + '\nMonto debitado $210\nSaldo actual ' + saldoCuenta);
             break;
             case '4':
+            oldSaldoCuenta();
             restaServ(telefono);
-            alert('Ha pagado el servicio Telefono.\nSaldo anterior $15000\nMonto debitado $570\nSaldo actual ' + saldoCuenta);
+            alert('Ha pagado el servicio Telefono.\n' + 'Saldo anterior $ ' + antiguoSaldo + '\nMonto debitado $570\nSaldo actual ' + saldoCuenta);
             break;
             case null:
             break;
@@ -133,30 +137,27 @@ function pagarServicio() {
     }
         
 function transferirDinero() {
-     var transfInt = consultaAlUsuario('Introduzca el monto que desea transferir.');
-     console.log(transfInt);
+    var transfInt = consultaAlUsuario('Introduzca el monto que desea transferir.');
+    console.log(transfInt);
      if (transfInt === null){
          return;
      }
      else if (isNaN(transfInt) || transfInt === ''){
         alert('Por favor introduzca el monto en caracteres numericos');
-        }
+    }
      else if (transfInt > saldoCuenta){
             alert('No dispone de suficiente saldo para realizar la transferencia.');
-        }
+    }
      else{
             var userTransf = prompt('Introduzca el número de cuenta al que desea transferirle dinero.');
-            console.log(userTransf);
-        if ((userTransf != cuentaAmiga1) && (userTransf != cuentaAmiga2)){
+            if ((userTransf != cuentaAmiga1) && (userTransf != cuentaAmiga2)){
                 alert('Recuerde que solo puede transferir plata a cuentas amigas.');
             }
-        else{
+            else{
                 restaTransf(transfInt);
                 actualizarSaldoEnPantalla(saldoCuenta);
-                alert('Se ha trnasferido $' + transfInt, 'a' + userTransf);
-            }
-            
-            
+                alert('Se ha transferido $ ' + transfInt + ' a la cuenta:\n' + userTransf);
+            }    
         }
 }
         
